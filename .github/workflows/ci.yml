@@ -1,0 +1,35 @@
+name: Build and Test
+
+on:
+  push:
+    branches:
+      - main  # Run this workflow on pushes to 'main'
+  pull_request:
+    branches:
+      - main  # Run on pull requests to 'main'
+
+jobs:
+  build_and_test:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [12.x, 14.x, 16.x]  # Parallelize jobs with different Node versions
+
+    steps:
+      # Step 1: Checkout the code from the repository
+      - uses: actions/checkout@v3
+
+      # Step 2: Set up the Node.js environment
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
+
+      # Step 3: Install dependencies
+      - name: Install dependencies
+        run: npm install
+
+      # Step 4: Run tests
+      - name: Run tests
+        run: npm test
