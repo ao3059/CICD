@@ -23,6 +23,11 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
 
+      # Add linting step
+      - name: Run Linter
+        run: npm run lint
+
+
       # Add caching to speed up dependency installation
       - name: Cache Node modules
         uses: actions/cache@v2
