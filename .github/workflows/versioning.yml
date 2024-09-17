@@ -1,0 +1,21 @@
+name: Bump version and tag
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  versioning:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+
+      # Bump the version and create a tag
+      - name: Bump version and push tag
+        uses: anothrNick/github-tag-action@v1.26.0
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          default_bump: patch  # Choose major, minor, or patch versioning
